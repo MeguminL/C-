@@ -16,19 +16,19 @@ typedef struct
 {
     //bmp header
     U16 bfType;         // B  M
-    U32 bfSize;         //ÎÄ¼ş´óĞ¡
+    U32 bfSize;         //æ–‡ä»¶å¤§å°
     U16 bfReserved1;
     U16 bfReserved2;
-    U32 bfOffBits;      //ÎÄ¼şÍ·Æ«ÒÆÁ¿
+    U32 bfOffBits;      //æ–‡ä»¶å¤´åç§»é‡
 
     //DIB header
-    U32 biSize;         //DIBÍ·´óĞ¡
-    U32 biWidth;        //ÎÄ¼ş¿í¶È
-    U32 biHeight;       //ÎÄ¼ş¸ß¶È
+    U32 biSize;         //DIBå¤´å¤§å°
+    U32 biWidth;        //æ–‡ä»¶å®½åº¦
+    U32 biHeight;       //æ–‡ä»¶é«˜åº¦
     U16 biPlanes;
-    U16 biBitCount;     //Ã¿¸öÏàËØµãµÄÎ»Êı
+    U16 biBitCount;     //æ¯ä¸ªç›¸ç´ ç‚¹çš„ä½æ•°
     U32 biCompression;
-    U32 biSizeImage;    //Í¼ÎÄ¼ş´óĞ¡
+    U32 biSizeImage;    //å›¾æ–‡ä»¶å¤§å°
     U32 biXPelsPerMeter;
     U32 biYPelsPerMeter;
     U32 biClrUsed;
@@ -37,11 +37,11 @@ typedef struct
 #pragma  pack()
 
 U8 Lagrange(int, int, double[], double );
-void out(BMP_HEADER); // ´òÓ¡bmpÎÄ¼şÍ·\ĞÅÏ¢Í·ĞÅÏ¢ 
-void read_Imag(char*, char*, BMP_HEADER&, U8*&);// ¶ÁÈ¡bmpÎÄ¼şĞÅÏ¢ 
-void scan_H_W_n(int&, int&, int&); // ÊäÈëÄ¿±êÍ¼Æ¬µÄ¿í¶È¡¢¸ß¶ÈºÍ²åÖµÑù±¾µãÊı 
-void change_Imag(BMP_HEADER, U8*&, U8*&, U8*, int, int, int );//ĞŞ¸ÄÍ¼Æ¬ĞÅÏ¢ 
-void write_Imag(char*, BMP_HEADER, U8*&, U8*, int, int );//½«ĞÅÏ¢±£´æÖÁbmpÎÄ¼şÖĞ 
+void out(BMP_HEADER); // æ‰“å°bmpæ–‡ä»¶å¤´\ä¿¡æ¯å¤´ä¿¡æ¯ 
+void read_Imag(char*, char*, BMP_HEADER&, U8*&);// è¯»å–bmpæ–‡ä»¶ä¿¡æ¯ 
+void scan_H_W_n(int&, int&, int&); // è¾“å…¥ç›®æ ‡å›¾ç‰‡çš„å®½åº¦ã€é«˜åº¦å’Œæ’å€¼æ ·æœ¬ç‚¹æ•° 
+void change_Imag(BMP_HEADER, U8*&, U8*&, U8*, int, int, int );//ä¿®æ”¹å›¾ç‰‡ä¿¡æ¯ 
+void write_Imag(char*, BMP_HEADER, U8*&, U8*, int, int );//å°†ä¿¡æ¯ä¿å­˜è‡³bmpæ–‡ä»¶ä¸­ 
 
 int main()
 {	
@@ -53,7 +53,7 @@ int main()
     int ok = 1, cnt=0;
 
 	while(1) {
-		printf("ÊÇ·ñĞèÒª½øĞĞÍ¼Æ¬Ëõ·Å£¿£¨0±íÊ¾·ñ£¬ÆäËü±íÊ¾ÊÇ£©:"); scanf("%d", &ok);
+		printf("æ˜¯å¦éœ€è¦è¿›è¡Œå›¾ç‰‡ç¼©æ”¾ï¼Ÿï¼ˆ0è¡¨ç¤ºå¦ï¼Œå…¶å®ƒè¡¨ç¤ºæ˜¯ï¼‰:"); scanf("%d", &ok);
 		if(!ok) break;
 		read_Imag(fName0, fName, header, data);
 		scan_H_W_n(width, height, n);
@@ -64,8 +64,8 @@ int main()
 }
 
 void scan_H_W_n(int& width, int& height, int& n){
-	printf("ÊäÈëËõ·ÅºóµÄ¿í¶È¡¢¸ß¶È£º"); scanf("%d %d", &width, &height);
-    printf("ÊäÈëÑù±¾µã¸öÊı£º");         scanf("%d", &n);
+	printf("è¾“å…¥ç¼©æ”¾åçš„å®½åº¦ã€é«˜åº¦ï¼š"); scanf("%d %d", &width, &height);
+    printf("è¾“å…¥æ ·æœ¬ç‚¹ä¸ªæ•°ï¼š");         scanf("%d", &n);
 }
 U8 Lagrange(int pos, int num, double x[], double g) {
     double y = 0, temp;
@@ -97,8 +97,8 @@ void out(BMP_HEADER header){
     printf(" biClrImportant  : %d  \n", header.biClrImportant  );
 }
 void read_Imag(char *fName0, char* fName, BMP_HEADER &header, U8*&data){
-	printf("ÇëÊäÈëĞèÒª½øĞĞËõ·ÅÍ¼Æ¬ÎÄ¼şÃû:"); scanf("%s", fName0);
-	printf("ÇëÊäÈë±£´æËõ·ÅÍ¼Æ¬µÄÎÄ¼şÃû:"); scanf("%s", fName);
+	printf("è¯·è¾“å…¥éœ€è¦è¿›è¡Œç¼©æ”¾å›¾ç‰‡æ–‡ä»¶å:"); scanf("%s", fName0);
+	printf("è¯·è¾“å…¥ä¿å­˜ç¼©æ”¾å›¾ç‰‡çš„æ–‡ä»¶å:"); scanf("%s", fName);
     FILE* fp;
     fp = fopen(fName0,"rb");
     if(NULL == fp)
@@ -160,12 +160,12 @@ void write_Imag(char *fName, BMP_HEADER header, U8* &temp, U8* clrPal, int width
 	header.bfSize 		= header.bfOffBits + header.biSizeImage;
     header.biWidth 		= width;
     header.biHeight 	= height; 
-    puts("******Ëõ·ÅºóbmpÎÄ¼şÍ·¡¢ĞÅÏ¢Í·******");
+    puts("******ç¼©æ”¾åbmpæ–‡ä»¶å¤´ã€ä¿¡æ¯å¤´******");
     out(header);
 	fwrite(&header, sizeof(BMP_HEADER), 1, fp);  
 	if(bpp == 8) fwrite(clrPal, 1024, 1, fp);
 	fwrite(temp, header.biSizeImage, 1, fp);
 	fclose(fp);
 	free(temp);
-	puts("Í¼Æ¬Ëõ·Å³É¹¦£¡\n");
+	puts("å›¾ç‰‡ç¼©æ”¾æˆåŠŸï¼\n");
 }
