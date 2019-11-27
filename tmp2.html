@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8">
+<title>播放本地媒体流</title>
+</head>
+<body>
+ <script type="text/javascript">
+  var promise = null;
+   function canGetUserMediaUse() {
+        return !!(navigator.mediaDevices.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
+    }
+  function getUserMedia(constrains,success,error){
+    if(navigator.mediaDevices.getUserMedia){
+      promise = navigator.mediaDevices.getUserMedia(constrains).then(success).catch(error);
+    }else if(navigator.webkitGetUserMedia){
+      promise = navigator.webkitGetUserMedia(constrains).then(success).catch(error);
+    }else if(navagator.mozGetUserMedia){
+      promise = navagator.mozGetUserMedia(constrains).then(success).catch(error);
+    }else if(navagator.getUserMedia){
+      promise = navagator.getUserMedia(constrains).then(success).catch(error);
+    }
+  }
+function showVideo() {
+        if (canGetUserMediaUse()) {
+            getUserMedia({
+                //audio:true,
+                video:true
+            },function (stream) {
+                console.log(stream);
+                document.getElementById('localVideo').srcObject = stream;
+            },function (error) {         })
+        }else  { alert('您的浏览器不兼容');  }
+    }
+
+ </script>
+  <video autoplay="true" id="localVideo"></video>
+  <button onclick = "showVideo()">
+    打开
+  </button>
+</body>
+</html> 
