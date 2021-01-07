@@ -3,6 +3,7 @@
 #include<string.h>
 #include<math.h>
 #include <time.h>
+
 struct Record  // Ìá½»¼ÇÂ¼ 
 {
 	int id;
